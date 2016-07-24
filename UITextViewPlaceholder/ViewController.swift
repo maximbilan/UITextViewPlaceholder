@@ -10,16 +10,48 @@ import UIKit
 
 class ViewController: UIViewController {
 
+	let placeholder = "Placeholder"
+	
+	@IBOutlet weak var textView: UITextView!
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		// Do any additional setup after loading the view, typically from a nib.
+		
+		textView.delegate = self
+		textView.text = placeholder
+		textView.textColor = UIColor.lightGrayColor()
+		textView.selectedTextRange = textView.textRangeFromPosition(textView.beginningOfDocument, toPosition: textView.beginningOfDocument)
 	}
-
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
-	}
-
 
 }
 
+extension ViewController: UITextViewDelegate {
+	
+	func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+		
+		let currentText: NSString = textView.text
+		let updatedText = currentText.stringByReplacingCharactersInRange(range, withString:text)
+		
+		if updatedText.isEmpty {
+			textView.text = placeholder
+			textView.textColor = UIColor.lightGrayColor()
+			textView.selectedTextRange = textView.textRangeFromPosition(textView.beginningOfDocument, toPosition: textView.beginningOfDocument)
+			return false
+		}
+		else if textView.textColor == UIColor.lightGrayColor() && !text.isEmpty {
+			textView.text = nil
+			textView.textColor = UIColor.blackColor()
+		}
+		
+		return true
+	}
+	
+	func textViewDidChangeSelection(textView: UITextView) {
+		if self.view.window != nil {
+			if textView.textColor == UIColor.lightGrayColor() {
+				textView.selectedTextRange = textView.textRangeFromPosition(textView.beginningOfDocument, toPosition: textView.beginningOfDocument)
+			}
+		}
+	}
+	
+}
