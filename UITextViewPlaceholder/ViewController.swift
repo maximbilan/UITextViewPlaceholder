@@ -19,37 +19,37 @@ class ViewController: UIViewController {
 		
 		textView.delegate = self
 		textView.text = placeholder
-		textView.textColor = UIColor.lightGrayColor()
-		textView.selectedTextRange = textView.textRangeFromPosition(textView.beginningOfDocument, toPosition: textView.beginningOfDocument)
+		textView.textColor = UIColor.lightGray
+		textView.selectedTextRange = textView.textRange(from: textView.beginningOfDocument, to: textView.beginningOfDocument)
 	}
 
 }
 
 extension ViewController: UITextViewDelegate {
 	
-	func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+	func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
 		
-		let currentText: NSString = textView.text
-		let updatedText = currentText.stringByReplacingCharactersInRange(range, withString:text)
+		let currentText: NSString = textView.text as NSString
+		let updatedText = currentText.replacingCharacters(in: range, with:text)
 		
 		if updatedText.isEmpty {
 			textView.text = placeholder
-			textView.textColor = UIColor.lightGrayColor()
-			textView.selectedTextRange = textView.textRangeFromPosition(textView.beginningOfDocument, toPosition: textView.beginningOfDocument)
+			textView.textColor = UIColor.lightGray
+			textView.selectedTextRange = textView.textRange(from: textView.beginningOfDocument, to: textView.beginningOfDocument)
 			return false
 		}
-		else if textView.textColor == UIColor.lightGrayColor() && !text.isEmpty {
+		else if textView.textColor == UIColor.lightGray && !text.isEmpty {
 			textView.text = nil
-			textView.textColor = UIColor.blackColor()
+			textView.textColor = UIColor.black
 		}
 		
 		return true
 	}
 	
-	func textViewDidChangeSelection(textView: UITextView) {
+	func textViewDidChangeSelection(_ textView: UITextView) {
 		if self.view.window != nil {
-			if textView.textColor == UIColor.lightGrayColor() {
-				textView.selectedTextRange = textView.textRangeFromPosition(textView.beginningOfDocument, toPosition: textView.beginningOfDocument)
+			if textView.textColor == UIColor.lightGray {
+				textView.selectedTextRange = textView.textRange(from: textView.beginningOfDocument, to: textView.beginningOfDocument)
 			}
 		}
 	}
