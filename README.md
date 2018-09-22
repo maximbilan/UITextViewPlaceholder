@@ -1,6 +1,6 @@
 # UITextViewPlaceholder
 
-Unfortunately, by default iOS SDK doesn’t have placeholder functionality.
+Unfortunately, by default iOS SDK doesn’t have the placeholder functionality.
 See the next implementation:
 
 ![alt tag](https://raw.github.com/maximbilan/UITextViewPlaceholder/master/test.gif)
